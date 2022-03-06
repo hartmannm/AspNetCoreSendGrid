@@ -1,5 +1,7 @@
 ﻿using ANCSG.Domain.Notification;
 using ANCSG.Infra.IoC.Data;
+using ANCSG.Infra.IoC.Notification;
+using ANCSG.Infra.IoC.UseCases;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -9,10 +11,11 @@ namespace ANCSG.Infra.IoC
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
+            services.AddScoped<INotifier, Notifier>();
             services.ConfigureDbContext(configuration);
             services.ConfigureRepositories();
-
-            services.AddScoped<INotifier, Notifier>();
+            services.ConfigureUseCases();
+            services.ConfigureEmail(configuration);
 
             return services;
         }

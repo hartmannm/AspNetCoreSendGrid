@@ -6,9 +6,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="SendGrid.Extensions.DependencyInjection" Version="1.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\ANCSG.Application\ANCSG.Application.csproj" />
     <ProjectReference Include="..\ANCSG.Domain\ANCSG.Domain.csproj" />
     <ProjectReference Include="..\ANCSG.Infra.Data\ANCSG.Infra.Data.csproj" />
+    <ProjectReference Include="..\ANCSG.Infra.Notification\ANCSG.Infra.Notification.csproj" />
   </ItemGroup>
 
 </Project>
