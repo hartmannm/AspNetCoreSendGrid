@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ANCSG.Application\ANCSG.Application.csproj" />
     <ProjectReference Include="..\ANCSG.Domain\ANCSG.Domain.csproj" />
   </ItemGroup>
 

@@ -1,4 +1,4 @@
-﻿using ANCSG.Domain.Email;
+﻿using ANCSG.Application.EmailNotification;
 using SendGrid;
 
 namespace ANCSG.Infra.Notification.Email.SendGrid

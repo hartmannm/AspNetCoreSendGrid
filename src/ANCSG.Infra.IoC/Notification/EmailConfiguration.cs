@@ -1,4 +1,5 @@
-﻿using ANCSG.Domain.Email;
+﻿using ANCSG.Application.EmailNotification;
+using ANCSG.Domain.Email;
 using ANCSG.Infra.Notification.Email.SendGrid;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
