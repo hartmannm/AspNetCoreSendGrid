@@ -1,4 +1,4 @@
-﻿using ANCSG.Domain.Contexts.DoctorContext.Data;
+﻿using ANCSG.Application.Contexts.DoctorContext.Data;
 using ANCSG.Domain.Contexts.DoctorContext.Entities;
 using ANCSG.Infra.Data.DataContext;
 using Microsoft.EntityFrameworkCore;

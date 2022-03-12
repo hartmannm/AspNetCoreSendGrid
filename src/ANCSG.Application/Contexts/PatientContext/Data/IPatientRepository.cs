@@ -1,7 +1,7 @@
+using ANCSG.Application.Data;
 using ANCSG.Domain.Contexts.PatientContext.Entities;
-using ANCSG.Domain.Data;
 
-namespace ANCSG.Domain.Contexts.PatientContext.Data
+namespace ANCSG.Application.Contexts.PatientContext.Data
 {
     public interface IPatientRepository : IRepository<Patient>
     {

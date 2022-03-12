@@ -1,8 +1,8 @@
-﻿using ANCSG.Domain.Contexts.DoctorContext.Data;
-using ANCSG.Domain.Contexts.MedicalExamContext.Data;
-using ANCSG.Domain.Contexts.PatientContext.Data;
+﻿using ANCSG.Application.Contexts.DoctorContext.Data;
+using ANCSG.Application.Contexts.MedicalExamContext.Data;
+using ANCSG.Application.Contexts.PatientContext.Data;
 
-namespace ANCSG.Domain.Data
+namespace ANCSG.Application.Data
 {
     public interface IDataManager
     {

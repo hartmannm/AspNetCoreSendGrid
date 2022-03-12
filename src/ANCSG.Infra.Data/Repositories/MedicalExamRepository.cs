@@ -1,4 +1,4 @@
-﻿using ANCSG.Domain.Contexts.MedicalExamContext.Data;
+﻿using ANCSG.Application.Contexts.MedicalExamContext.Data;
 using ANCSG.Domain.Contexts.MedicalExamContext.Entities;
 using ANCSG.Infra.Data.DataContext;
 

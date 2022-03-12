@@ -2,7 +2,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace ANCSG.Domain.Data
+namespace ANCSG.Application.Data
 {
     public interface IRepository<T> : IDisposable where T : IAggregateRoot
     {

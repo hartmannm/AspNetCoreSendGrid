@@ -1,7 +1,7 @@
-﻿using ANCSG.Domain.Contexts.DoctorContext.Data;
-using ANCSG.Domain.Contexts.MedicalExamContext.Data;
-using ANCSG.Domain.Contexts.PatientContext.Data;
-using ANCSG.Domain.Data;
+﻿using ANCSG.Application.Contexts.DoctorContext.Data;
+using ANCSG.Application.Contexts.MedicalExamContext.Data;
+using ANCSG.Application.Contexts.PatientContext.Data;
+using ANCSG.Application.Data;
 using ANCSG.Infra.Data.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 

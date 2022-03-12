@@ -1,4 +1,4 @@
-﻿using ANCSG.Domain.Data;
+﻿using ANCSG.Application.Data;
 using ANCSG.Domain.Notification;
 
 namespace ANCSG.Application.UseCase

@@ -1,4 +1,4 @@
-﻿using ANCSG.Domain.Contexts.PatientContext.Data;
+﻿using ANCSG.Application.Contexts.PatientContext.Data;
 using ANCSG.Domain.Contexts.PatientContext.Entities;
 using ANCSG.Infra.Data.DataContext;
 
