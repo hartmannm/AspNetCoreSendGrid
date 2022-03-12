@@ -1,8 +1,8 @@
 ﻿using ANCSG.Application.Contexts.DoctorContext.DTOs;
 using ANCSG.Application.Contexts.DoctorContext.Factories;
 using ANCSG.Application.Data;
+using ANCSG.Application.Notification;
 using ANCSG.Application.UseCase;
-using ANCSG.Domain.Notification;
 using System.Threading.Tasks;
 
 namespace ANCSG.Application.Contexts.DoctorContext.UseCases

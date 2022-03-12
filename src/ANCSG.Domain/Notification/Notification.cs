@@ -1,6 +1,6 @@
 ﻿namespace ANCSG.Domain.Notification
 {
-    public struct Notification
+    public sealed class Notification
     {
         public string Message { get; private set; }
 

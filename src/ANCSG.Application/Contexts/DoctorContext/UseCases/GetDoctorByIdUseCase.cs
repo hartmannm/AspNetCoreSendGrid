@@ -1,7 +1,7 @@
 ﻿using ANCSG.Application.Contexts.DoctorContext.DTOs;
 using ANCSG.Application.Data;
+using ANCSG.Application.Notification;
 using ANCSG.Application.UseCase;
-using ANCSG.Domain.Notification;
 using System;
 using System.Threading.Tasks;
 

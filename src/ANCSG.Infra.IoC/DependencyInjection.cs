@@ -1,4 +1,4 @@
-﻿using ANCSG.Domain.Notification;
+﻿using ANCSG.Application.Notification;
 using ANCSG.Infra.IoC.Data;
 using ANCSG.Infra.IoC.Notification;
 using ANCSG.Infra.IoC.UseCases;
