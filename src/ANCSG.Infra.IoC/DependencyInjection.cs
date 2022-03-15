@@ -1,5 +1,6 @@
 ﻿using ANCSG.Application.Notification;
 using ANCSG.Infra.IoC.Data;
+using ANCSG.Infra.IoC.Map;
 using ANCSG.Infra.IoC.MessageBus;
 using ANCSG.Infra.IoC.Notification;
 using ANCSG.Infra.IoC.UseCases;
@@ -18,6 +19,7 @@ namespace ANCSG.Infra.IoC
             services.ConfigureRepositories();
             services.ConfigureUseCases();
             services.ConfigureEmail(configuration);
+            services.ConfigureMapper();
             services.ConfigureMessageBus(configuration);
 
             return services;

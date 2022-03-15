@@ -1,4 +1,5 @@
 ﻿using ANCSG.Application.Data;
+using ANCSG.Application.Map;
 using ANCSG.Application.Notification;
 using ANCSG.Application.UseCase;
 using System;
@@ -8,7 +9,7 @@ namespace ANCSG.Application.Contexts.PatientContext.UseCases
 {
     public class RegisterPatietUseCase : UseCaseBase, IRegisterPatietUseCase
     {
-        public RegisterPatietUseCase(INotifier notifier, IDataManager dataManager) : base(notifier, dataManager)
+        public RegisterPatietUseCase(INotifier notifier, IDataManager dataManager, IMap map) : base(notifier, dataManager, map)
         {
         }
 
