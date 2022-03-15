@@ -1,8 +1,8 @@
 ﻿namespace ANCSG.Domain.DomainEntities.ValueObjects
 {
-    public struct Email
+    public record Email
     {
-        public string Address { get; private set; }
+        public string Address { get; init; }
 
         public Email(string address)
         {

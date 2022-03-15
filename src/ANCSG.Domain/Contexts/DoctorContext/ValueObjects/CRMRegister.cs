@@ -2,15 +2,15 @@
 
 namespace ANCSG.Domain.Contexts.DoctorContext.ValueObjects
 {
-    public struct CRMRegister
+    public record CRMRegister
     {
-        public UF UFRegister { get; private set; }
+        public UF Uf { get; init; }
 
-        public long Number { get; private set; }
+        public long Number { get; init; }
 
-        public CRMRegister(UF uFRegister, long number)
+        public CRMRegister(UF uf, long number)
         {
-            UFRegister = uFRegister;
+            Uf = uf;
             Number = number;
         }
     }
