@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace ANCSG.Infra.IoC.Data
 {
-    public static class RepositoryConfiguration
+    internal static class RepositoryConfiguration
     {
         public static IServiceCollection ConfigureRepositories(this IServiceCollection services)
         {

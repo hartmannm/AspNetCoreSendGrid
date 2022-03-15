@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace ANCSG.Infra.IoC.Data
 {
-    public static class DbContextConfiguration
+    internal static class DbContextConfiguration
     {
         public static IServiceCollection ConfigureDbContext(this IServiceCollection services, IConfiguration configuration)
         {

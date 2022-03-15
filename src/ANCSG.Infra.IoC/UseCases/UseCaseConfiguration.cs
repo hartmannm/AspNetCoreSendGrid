@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace ANCSG.Infra.IoC.UseCases
 {
-    public static class UseCaseConfiguration
+    internal static class UseCaseConfiguration
     {
         public static IServiceCollection ConfigureUseCases(this IServiceCollection services)
         {

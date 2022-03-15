@@ -1,5 +1,4 @@
 ﻿using ANCSG.Application.EmailNotification;
-using ANCSG.Domain.Email;
 using ANCSG.Infra.Notification.Email.SendGrid;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -7,7 +6,7 @@ using SendGrid.Extensions.DependencyInjection;
 
 namespace ANCSG.Infra.IoC.Notification
 {
-    public static class EmailConfiguration
+    internal static class EmailConfiguration
     {
         public static IServiceCollection ConfigureEmail(this IServiceCollection services, IConfiguration configuration)
         {
