@@ -10,7 +10,7 @@ namespace ANCSG.Application.Contexts.DoctorContext.Factories
         public static Doctor Create(RegisterDoctorRequest request)
         {
             var uf = request.CRMUF.toEnum<UF>();
-            return new Doctor(request.Name, request.Email, request.Phone, uf, request.CRMNumber);
+            return new Doctor(request.FirstName, request.LastName, request.Email, uf, request.CRMNumber);
         }
     }
 }

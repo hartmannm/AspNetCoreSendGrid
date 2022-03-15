@@ -1,22 +1,21 @@
-﻿namespace ANCSG.Domain.DomainEntities
+﻿using ANCSG.Domain.DomainEntities.ValueObjects;
+
+namespace ANCSG.Domain.DomainEntities
 {
     public abstract class Person : Entity
     {
-        public string Name { get; private set; }
+        public Name Name { get; private set; }
 
-        public string Email { get; private set; }
-
-        public string Contact { get; private set; }
+        public ValueObjects.Email Email { get; private set; }
 
         protected Person()
         {
         }
 
-        public Person(string name, string email, string contact)
+        public Person(string firstName, string lastName, string email)
         {
-            Name = name;
-            Email = email;
-            Contact = contact;
+            Name = new Name(firstName: firstName, lastName: lastName);
+            Email = new ValueObjects.Email(email);
         }
     }
 }

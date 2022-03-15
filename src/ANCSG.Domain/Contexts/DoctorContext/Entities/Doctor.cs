@@ -1,4 +1,5 @@
-﻿using ANCSG.Domain.Contexts.MedicalExamContext.Entities;
+﻿using ANCSG.Domain.Contexts.DoctorContext.ValueObjects;
+using ANCSG.Domain.Contexts.MedicalExamContext.Entities;
 using ANCSG.Domain.DomainEntities;
 using ANCSG.Domain.DomainEntities.Enums;
 using System.Collections.Generic;
@@ -7,9 +8,7 @@ namespace ANCSG.Domain.Contexts.DoctorContext.Entities
 {
     public class Doctor : Person, IAggregateRoot
     {
-        public UF CRMUF { get; set; }
-
-        public long CRMNumber { get; private set; }
+        public CRMRegister CRM { get; private set; }
 
         public ICollection<MedicalExam> MedicalExams { get; private set; }
 
@@ -17,10 +16,10 @@ namespace ANCSG.Domain.Contexts.DoctorContext.Entities
         {
         }
 
-        public Doctor(string name, string email, string contact, UF CRMUF, long CRMNumber) : base(name, email, contact)
+        public Doctor(string firstName, string lastName, string email, UF CRMUF, long CRMNumber)
+            : base(firstName, lastName, email)
         {
-            this.CRMUF = CRMUF;
-            this.CRMNumber = CRMNumber;
+            CRM = new CRMRegister(CRMUF, CRMNumber);
             MedicalExams = new List<MedicalExam>();
         }
     }

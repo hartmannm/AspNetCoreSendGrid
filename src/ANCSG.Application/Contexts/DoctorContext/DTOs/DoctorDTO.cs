@@ -18,9 +18,9 @@ namespace ANCSG.Application.Contexts.DoctorContext.DTOs
             return new DoctorDTO
             {
                 Id = doctor.Id,
-                Name = doctor.Name,
-                Email = doctor.Email,
-                CRM = $"{doctor.CRMNumber}/{doctor.CRMUF}"
+                Name = $"{doctor.Name.FirstName} {doctor.Name.LastName}",
+                Email = doctor.Email.Address,
+                CRM = $"{doctor.CRM.Number}/{doctor.CRM.Uf}"
             };
         }
     }

@@ -15,7 +15,8 @@ namespace ANCSG.Domain.Contexts.PatientContext.Entities
         {
         }
 
-        public Patient(string name, string email, string contact, DateTime birthDate) : base(name, email, contact)
+        public Patient(string firstName, string lastName, string email, DateTime birthDate)
+            : base(firstName, lastName, email)
         {
             BirthDate = birthDate;
             MedicalExams = new List<MedicalExam>();
