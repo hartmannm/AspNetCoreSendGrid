@@ -8,14 +8,26 @@ namespace ANCSG.Infra.Data.Mappings
     {
         public void Configure(EntityTypeBuilder<Patient> builder)
         {
-            builder.Property(x => x.Name)
-                .IsRequired();
+            builder.OwnsOne(x => x.Name, cb =>
+            {
+                cb.Property(n => n.FirstName)
+                    .IsRequired()
+                    .HasColumnName("FirstName");
 
-            builder.Property(x => x.Email)
-                .IsRequired();
+                cb.Property(n => n.LastName)
+                    .IsRequired()
+                    .HasColumnName("LastName");
+            });
 
-            builder.HasIndex(x => x.Email)
-                .IsUnique();
+            builder.OwnsOne(x => x.Email, cb =>
+            {
+                cb.Property(e => e.Address)
+                    .IsRequired()
+                    .HasColumnName("Email");
+
+                cb.HasIndex(e => e.Address)
+                    .IsUnique();
+            });
 
             builder.Property(x => x.BirthDate)
                 .IsRequired();
