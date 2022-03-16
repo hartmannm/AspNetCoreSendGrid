@@ -1,3 +1,4 @@
+using ANCSG.API.Services;
 using ANCSG.Infra.IoC;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +9,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddInfrastructure(builder.Configuration);
+
+builder.Services.AddHostedService<DoctorRegisteredIntegrationHandler>();
 
 var app = builder.Build();
 
