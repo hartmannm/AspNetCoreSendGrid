@@ -19,21 +19,21 @@ namespace ANCSG.Domain.Email
 
         public string TemplateId { get; private set; }
 
-        public ITemplateData TemplateData { get; private set; }
+        public object TemplateData { get; private set; }
 
         private Email()
         {
             EmailAdresses = new List<EmailAddress>();
         }
 
-        public Email(EmailAddress from, string templateId, ITemplateData templateData) : this()
+        public Email(EmailAddress from, string templateId, object templateData) : this()
         {
             From = from;
             TemplateId = templateId;
             TemplateData = templateData;
         }
 
-        public Email(EmailAddress from, string templateId, ITemplateData templateData, ICollection<EmailAddress> emailAdresses) : this(from, templateId, templateData)
+        public Email(EmailAddress from, string templateId, object templateData, ICollection<EmailAddress> emailAdresses) : this(from, templateId, templateData)
         {
             From = from;
             TemplateId = templateId;

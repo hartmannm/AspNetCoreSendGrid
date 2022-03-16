@@ -2,14 +2,8 @@
 {
     public class EmailAddress
     {
-        public string Address { get; private set; }
+        public string Address { get; init; }
 
-        public string Name { get; private set; }
-
-        public EmailAddress(string address, string name)
-        {
-            Address = address;
-            Name = name;
-        }
+        public string Name { get; init; }
     }
 }
