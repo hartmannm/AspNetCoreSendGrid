@@ -1,27 +1,15 @@
-﻿using ANCSG.Domain.Contexts.DoctorContext.Entities;
-using System;
+﻿using System;
 
 namespace ANCSG.Application.Contexts.DoctorContext.DTOs
 {
-    public class DoctorDTO
+    public sealed record DoctorDTO
     {
-        public Guid Id { get; set; }
+        public Guid Id { get; init; }
 
-        public string Name { get; set; }
+        public string Name { get; init; }
 
-        public string Email { get; set; }
+        public string Email { get; init; }
 
-        public string CRM { get; set; }
-
-        public static explicit operator DoctorDTO(Doctor doctor)
-        {
-            return new DoctorDTO
-            {
-                Id = doctor.Id,
-                Name = $"{doctor.Name.FirstName} {doctor.Name.LastName}",
-                Email = doctor.Email.Address,
-                CRM = $"{doctor.CRM.Number}/{doctor.CRM.Uf}"
-            };
-        }
+        public string CRM { get; init; }
     }
 }

@@ -1,15 +1,15 @@
 ﻿namespace ANCSG.Application.Contexts.DoctorContext.UseCases
 {
-    public sealed class RegisterDoctorRequest
+    public sealed record RegisterDoctorRequest
     {
-        public string FirstName { get; set; }
+        public string FirstName { get; init; }
 
-        public string LastName { get; set; }
+        public string LastName { get; init; }
 
-        public string Email { get; set; }
+        public string Email { get; init; }
 
-        public string CRMUF { get; set; }
+        public string CRMUF { get; init; }
 
-        public long CRMNumber { get; set; }
+        public long CRMNumber { get; init; }
     }
 }
