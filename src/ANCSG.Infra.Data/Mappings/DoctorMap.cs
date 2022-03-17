@@ -41,7 +41,7 @@ namespace ANCSG.Infra.Data.Mappings
                     .IsRequired()
                     .HasColumnName("CrmNumber");
 
-                cb.HasIndex(c => c.Number)
+                cb.HasIndex(c => new { c.Uf, c.Number })
                     .IsUnique();
             });
 

@@ -4,6 +4,7 @@ using ANCSG.Infra.Data.DataContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ANCSG.Infra.Data.Migrations
 {
     [DbContext(typeof(SendGridContext))]
-    partial class SendGridContextModelSnapshot : ModelSnapshot
+    [Migration("20220317002444_Update-Doctor-CRM-Unique-Keys")]
+    partial class UpdateDoctorCRMUniqueKeys
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
