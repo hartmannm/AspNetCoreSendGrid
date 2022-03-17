@@ -1,17 +1,21 @@
 ﻿using ANCSG.Application.Contexts.DoctorContext.UseCases;
+using ANCSG.Application.Notification;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ANCSG.API.Controllers
 {
-    [ApiController]
+
     [Route("api/doctor")]
-    public class DoctorController : ControllerBase
+    public class DoctorController : BaseController
     {
         private readonly IRegisterDoctorUseCase _registerDoctorUseCase;
         private readonly IGetDoctorByIdUseCase _getDoctorByIdUseCase;
         private readonly IGetAllDoctorsUseCase _getAllDoctorsUseCase;
 
-        public DoctorController(IRegisterDoctorUseCase registerDoctorUseCase, IGetDoctorByIdUseCase getDoctorByIdUseCase, IGetAllDoctorsUseCase getAllDoctorsUseCase)
+        public DoctorController(INotifier notifier,
+                                IRegisterDoctorUseCase registerDoctorUseCase,
+                                IGetDoctorByIdUseCase getDoctorByIdUseCase,
+                                IGetAllDoctorsUseCase getAllDoctorsUseCase) : base(notifier)
         {
             _registerDoctorUseCase = registerDoctorUseCase;
             _getDoctorByIdUseCase = getDoctorByIdUseCase;
@@ -21,9 +25,10 @@ namespace ANCSG.API.Controllers
         [HttpPost]
         public async Task<IActionResult> RegisterDoctor(RegisterDoctorRequest request)
         {
-            var result = await _registerDoctorUseCase.Execute(request);
+            var opResult = await _registerDoctorUseCase.Execute(request);
+            var result = new ObjectResult(opResult) { StatusCode = StatusCodes.Status201Created };
 
-            return new ObjectResult(result) { StatusCode = StatusCodes.Status201Created };
+            return DefaultResponse(result);
         }
 
         [HttpGet("{id:guid}")]
