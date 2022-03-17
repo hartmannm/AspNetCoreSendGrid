@@ -11,6 +11,8 @@ namespace ANCSG.Application.Map.AutoMapper
             _mapper = mapper;
         }
 
+        public T Map<T>(object from) where T : class => _mapper.Map<T>(from);
+
         public T Map<F, T>(F from)
             where F : class
             where T : class
