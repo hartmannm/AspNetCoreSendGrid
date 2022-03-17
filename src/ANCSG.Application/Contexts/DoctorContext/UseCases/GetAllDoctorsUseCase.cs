@@ -4,7 +4,6 @@ using ANCSG.Application.Map;
 using ANCSG.Application.Notification;
 using ANCSG.Application.UseCase;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace ANCSG.Application.Contexts.DoctorContext.UseCases
@@ -20,7 +19,7 @@ namespace ANCSG.Application.Contexts.DoctorContext.UseCases
             var repository = dataManager.DoctorRepository;
             var doctors = await repository.GetAllAsync();
 
-            return doctors.Select(x => (DoctorDTO)x);
+            return map.Map<IEnumerable<DoctorDTO>>(doctors);
         }
     }
 }

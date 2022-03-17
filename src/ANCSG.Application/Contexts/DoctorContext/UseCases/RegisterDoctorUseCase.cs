@@ -1,12 +1,12 @@
 ﻿using ANCSG.Application.Contexts.DoctorContext.Data;
 using ANCSG.Application.Contexts.DoctorContext.DTOs;
-using ANCSG.Application.Contexts.DoctorContext.Factories;
 using ANCSG.Application.Data;
 using ANCSG.Application.Map;
 using ANCSG.Application.MessageBus;
 using ANCSG.Application.MessageBus.Constants;
 using ANCSG.Application.Notification;
 using ANCSG.Application.UseCase;
+using ANCSG.Domain.Contexts.DoctorContext.Entities;
 using ANCSG.Domain.Contexts.DoctorContext.Events;
 using ANCSG.Domain.DomainEntities.Enums;
 using ANCSG.Domain.Extensions;
@@ -33,7 +33,7 @@ namespace ANCSG.Application.Contexts.DoctorContext.UseCases
                 return null;
             }
 
-            var doctor = DoctorFactory.Create(request);
+            var doctor = map.Map<Doctor>(request);
 
             await _doctorRepository.CreateAsync(doctor);
             await _doctorRepository.SaveChangesAsync();
@@ -41,7 +41,7 @@ namespace ANCSG.Application.Contexts.DoctorContext.UseCases
             var @event = new DoctorRegisteredEvent(doctor.Name.FirstName, doctor.Name.LastName, doctor.Email.Address);
             _messageBus.Publish(Queues.USER_REGISTERED, @event, Exchanges.NOTIFICATION);
 
-            return (DoctorDTO)doctor;
+            return map.Map<DoctorDTO>(doctor);
         }
 
         private async Task<bool> Exists(string address, string crmUf, long crmNumber)

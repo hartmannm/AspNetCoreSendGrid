@@ -19,7 +19,7 @@ namespace ANCSG.Application.Contexts.DoctorContext.UseCases
             var repository = dataManager.DoctorRepository;
             var doctor = await repository.GetByIdAsync(id);
 
-            return (DoctorDTO)doctor;
+            return map.Map<DoctorDTO>(doctor);
         }
     }
 }
