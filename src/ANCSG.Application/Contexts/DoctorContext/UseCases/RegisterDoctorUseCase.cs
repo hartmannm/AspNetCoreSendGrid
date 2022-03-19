@@ -27,6 +27,12 @@ namespace ANCSG.Application.Contexts.DoctorContext.UseCases
 
         public async Task<DoctorDTO> Execute(RegisterDoctorRequest request)
         {
+            if (!request.IsValid)
+            {
+                notifier.AddNotifications(request.Notifications);
+                return null;
+            }
+            
             if (await Exists(request.Email, request.CRMUF, request.CRMNumber))
             {
                 notifier.AddNotification("Doutor já cadastrado");
