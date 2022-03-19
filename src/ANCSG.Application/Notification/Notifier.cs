@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace ANCSG.Application.Notification
@@ -26,6 +27,11 @@ namespace ANCSG.Application.Notification
         {
             if (!_notifications.Any(n => n.Message.Equals(notificationMessage)))
                 _notifications.Add(new Domain.Notification.Notification(notificationMessage));
+        }
+
+        public void AddNotifications(ICollection<Domain.Notification.Notification> notifications)
+        {
+            _notifications = _notifications.Union(notifications).ToList();
         }
     }
 }

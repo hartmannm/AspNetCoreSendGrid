@@ -1,8 +1,8 @@
 ﻿namespace ANCSG.Domain.Notification
 {
-    public sealed class Notification
+    public sealed record Notification
     {
-        public string Message { get; private set; }
+        public string Message { get; init; }
 
         public Notification(string message)
         {

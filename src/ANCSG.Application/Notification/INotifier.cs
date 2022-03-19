@@ -10,6 +10,8 @@ namespace ANCSG.Application.Notification
 
         void AddNotification(Domain.Notification.Notification notification);
 
+        void AddNotifications(ICollection<Domain.Notification.Notification> notifications);
+
         void AddNotification(string notificationMessage);
     }
 }
