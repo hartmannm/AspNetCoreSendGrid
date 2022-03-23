@@ -26,9 +26,8 @@ namespace ANCSG.API.Controllers
         public async Task<IActionResult> RegisterDoctor(RegisterDoctorRequest request)
         {
             var opResult = await _registerDoctorUseCase.Execute(request);
-            var result = new ObjectResult(opResult) { StatusCode = StatusCodes.Status201Created };
 
-            return DefaultResponse(result);
+            return DefaultResponse(Created(opResult));
         }
 
         [HttpGet("{id:guid}")]

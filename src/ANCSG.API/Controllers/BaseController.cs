@@ -24,5 +24,7 @@ namespace ANCSG.API.Controllers
 
             return result;
         }
+
+        protected IActionResult Created(object data) => new ObjectResult(data) { StatusCode = StatusCodes.Status201Created };
     }
 }
