@@ -3,6 +3,7 @@ using ANCSG.Domain.Contexts.PatientContext.Entities;
 using ANCSG.Infra.Data.DataContext;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ANCSG.Infra.Data.Repositories
@@ -26,6 +27,11 @@ namespace ANCSG.Infra.Data.Repositories
         public async Task<Patient> GetByIdAsync(Guid id)
         {
             return await context.Patients.FindAsync(id);
+        }
+
+        public async Task<IEnumerable<Patient>> GetAllAsync()
+        {
+            return await context.Patients.ToListAsync();
         }
     }
 }

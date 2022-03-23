@@ -10,13 +10,16 @@ namespace ANCSG.API.Controllers
     {
         private readonly IRegisterPatientUseCase _registerPatientUseCase;
         private readonly IGetPatientByIdUseCase _getPatientByIdUseCase;
+        private readonly IGetAllPatientsUseCase _getAllPatientsUseCase;
 
         public PatientController(INotifier notifier,
-                                IRegisterPatientUseCase registerPatientUseCase, 
-                                IGetPatientByIdUseCase getPatientByIdUseCase) : base(notifier)
+                                IRegisterPatientUseCase registerPatientUseCase,
+                                IGetPatientByIdUseCase getPatientByIdUseCase,
+                                IGetAllPatientsUseCase getAllPatientsUseCase) : base(notifier)
         {
             _registerPatientUseCase = registerPatientUseCase;
             _getPatientByIdUseCase = getPatientByIdUseCase;
+            _getAllPatientsUseCase = getAllPatientsUseCase;
         }
 
         [HttpPost]
@@ -34,6 +37,14 @@ namespace ANCSG.API.Controllers
             var result = await _getPatientByIdUseCase.Execute(id);
 
             return result is null ? NoContent() : Ok(result);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllAsync()
+        {
+            var result = await _getAllPatientsUseCase.Execute();
+
+            return Ok(result);
         }
     }
 }
