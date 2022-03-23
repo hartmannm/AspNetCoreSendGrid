@@ -36,7 +36,7 @@ namespace ANCSG.API.Controllers
         {
             var result = await _getDoctorByIdUseCase.Execute(id);
 
-            return Ok(result);
+            return result is null ? NoContent() : Ok(result);
         }
 
         [HttpGet]
