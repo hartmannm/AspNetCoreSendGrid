@@ -21,6 +21,7 @@ namespace ANCSG.Infra.IoC.Map
             var config = new MapperConfiguration(mc =>
             {
                 mc.AddProfile<DoctorProfile>();
+                mc.AddProfile<PatientProfile>();
             });
             config.AssertConfigurationIsValid();
 
