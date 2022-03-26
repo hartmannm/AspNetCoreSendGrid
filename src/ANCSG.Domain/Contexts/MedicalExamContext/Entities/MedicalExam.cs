@@ -28,7 +28,7 @@ namespace ANCSG.Domain.Contexts.MedicalExamContext.Entities
         public MedicalExam(DateTime date, Doctor doctor, Patient patient) : base()
         {
             Date = date;
-            DoctorId = Doctor.Id;
+            DoctorId = doctor.Id;
             Doctor = doctor;
             PatientId = patient.Id;
             Patient = patient;

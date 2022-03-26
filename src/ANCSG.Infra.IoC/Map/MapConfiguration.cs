@@ -22,6 +22,7 @@ namespace ANCSG.Infra.IoC.Map
             {
                 mc.AddProfile<DoctorProfile>();
                 mc.AddProfile<PatientProfile>();
+                mc.AddProfile<MedicalExamProfile>();
             });
             config.AssertConfigurationIsValid();
 
