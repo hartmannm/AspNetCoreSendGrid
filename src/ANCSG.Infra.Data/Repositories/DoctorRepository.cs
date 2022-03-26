@@ -1,8 +1,6 @@
 ﻿using ANCSG.Application.Contexts.DoctorContext.Data;
 using ANCSG.Domain.Contexts.DoctorContext.Entities;
-using ANCSG.Domain.Contexts.DoctorContext.ValueObjects;
 using ANCSG.Domain.DomainEntities.Enums;
-using ANCSG.Domain.DomainEntities.ValueObjects;
 using ANCSG.Infra.Data.DataContext;
 using Microsoft.EntityFrameworkCore;
 using System;

@@ -14,24 +14,12 @@ namespace ANCSG.Infra.Data.Repositories
         {
         }
 
-        public async Task CreateAsync(Patient patient)
-        {
-            await context.Patients.AddAsync(patient);
-        }
+        public async Task CreateAsync(Patient patient) => await context.Patients.AddAsync(patient);
 
-        public async Task<bool> ExistsByEmailAsync(string email)
-        {
-            return await context.Patients.AnyAsync(x => x.Email.Address.Equals(email));
-        }
+        public async Task<bool> ExistsByEmailAsync(string email) => await context.Patients.AnyAsync(x => x.Email.Address.Equals(email));
 
-        public async Task<Patient> GetByIdAsync(Guid id)
-        {
-            return await context.Patients.FindAsync(id);
-        }
+        public async Task<Patient> GetByIdAsync(Guid id) => await context.Patients.FindAsync(id);
 
-        public async Task<IEnumerable<Patient>> GetAllAsync()
-        {
-            return await context.Patients.ToListAsync();
-        }
+        public async Task<IEnumerable<Patient>> GetAllAsync() => await context.Patients.ToListAsync();
     }
 }
