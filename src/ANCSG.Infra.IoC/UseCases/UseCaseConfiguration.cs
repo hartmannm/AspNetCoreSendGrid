@@ -1,4 +1,5 @@
 ﻿using ANCSG.Application.Contexts.DoctorContext.UseCases;
+using ANCSG.Application.Contexts.MedicalExamContext.UseCases;
 using ANCSG.Application.Contexts.PatientContext.UseCases;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -14,6 +15,7 @@ namespace ANCSG.Infra.IoC.UseCases
             services.AddScoped<IRegisterPatientUseCase, RegisterPatientUseCase>();
             services.AddScoped<IGetPatientByIdUseCase, GetPatientByIdUseCase>();
             services.AddScoped<IGetAllPatientsUseCase, GetAllPatientsUseCase>();
+            services.AddScoped<IScheduleMedicalExamUseCase, ScheduleMedicalExamUseCase>();
             return services;
         }
     }
