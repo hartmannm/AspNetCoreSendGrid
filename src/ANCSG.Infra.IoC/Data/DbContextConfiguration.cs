@@ -9,7 +9,11 @@ namespace ANCSG.Infra.IoC.Data
     {
         public static IServiceCollection ConfigureDbContext(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<SendGridContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<SendGridContext>(options =>
+            {
+                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
+                options.EnableSensitiveDataLogging();
+            });
             return services;
         }
     }
