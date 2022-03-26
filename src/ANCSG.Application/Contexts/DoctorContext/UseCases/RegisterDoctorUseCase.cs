@@ -45,7 +45,7 @@ namespace ANCSG.Application.Contexts.DoctorContext.UseCases
             await _doctorRepository.SaveChangesAsync();
 
             var @event = new DoctorRegisteredEvent(doctor.Name.FirstName, doctor.Name.LastName, doctor.Email.Address);
-            _messageBus.Publish(Queues.USER_REGISTERED, @event, Exchanges.NOTIFICATION);
+            _messageBus.Publish(Queues.DOCTOR_REGISTERED, @event, Exchanges.NOTIFICATION);
 
             return map.Map<DoctorDTO>(doctor);
         }

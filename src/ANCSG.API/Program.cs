@@ -11,6 +11,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddInfrastructure(builder.Configuration);
 
 builder.Services.AddHostedService<DoctorRegisteredIntegrationHandler>();
+builder.Services.AddHostedService<PatientRegisteredIntegrationHandler>();
 
 var app = builder.Build();
 
