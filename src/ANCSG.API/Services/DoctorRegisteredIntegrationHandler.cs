@@ -2,6 +2,7 @@
 using ANCSG.Application.EmailNotification;
 using ANCSG.Application.MessageBus;
 using ANCSG.Application.MessageBus.Constants;
+using ANCSG.Application.MessageBus.Enums;
 using ANCSG.Domain.Contexts.DoctorContext.Events;
 using ANCSG.Domain.Email;
 
@@ -22,7 +23,7 @@ namespace ANCSG.API.Services
 
         protected override Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            _messageBus.SubscribeAsync<DoctorRegisteredEvent>(Queues.DOCTOR_REGISTERED, Execute);
+            _messageBus.SubscribeAsync<DoctorRegisteredEvent>(GetMessageBusConnectionConfig(), Execute);
             return Task.CompletedTask;
         }
 
@@ -34,6 +35,13 @@ namespace ANCSG.API.Services
 
             email.AddAddress(destin);
             await _emailSender.SendAsync(email);
+        }
+
+        private BusConnectionConfig GetMessageBusConnectionConfig()
+        {
+            var exchange = new BusExchangeConfigs(Exchanges.DOCTOR_PATIENT_REGISTER, EExchangeType.DIRECT, true);
+            var queue = new BusQueueConfigs(Queues.DOCTOR_REGISTERED);
+            return new BusConnectionConfig(queue, exchange);
         }
     }
 }

@@ -4,6 +4,7 @@ using ANCSG.Application.Data;
 using ANCSG.Application.Map;
 using ANCSG.Application.MessageBus;
 using ANCSG.Application.MessageBus.Constants;
+using ANCSG.Application.MessageBus.Enums;
 using ANCSG.Application.Notification;
 using ANCSG.Application.UseCase;
 using ANCSG.Domain.Contexts.DoctorContext.Entities;
@@ -45,7 +46,7 @@ namespace ANCSG.Application.Contexts.DoctorContext.UseCases
             await _doctorRepository.SaveChangesAsync();
 
             var @event = new DoctorRegisteredEvent(doctor.Name.FirstName, doctor.Name.LastName, doctor.Email.Address);
-            _messageBus.Publish(Queues.DOCTOR_REGISTERED, @event, Exchanges.NOTIFICATION);
+            _messageBus.Publish(GetMessageBusConnectionConfig(), @event);
 
             return map.Map<DoctorDTO>(doctor);
         }
@@ -53,6 +54,13 @@ namespace ANCSG.Application.Contexts.DoctorContext.UseCases
         private async Task<bool> Exists(string address, string crmUf, long crmNumber)
         {
             return await _doctorRepository.ExistsByEmailOrCRMAsync(address, crmUf.toEnum<UF>(), crmNumber);
+        }
+
+        private BusConnectionConfig GetMessageBusConnectionConfig()
+        {
+            var exchange = new BusExchangeConfigs(Exchanges.DOCTOR_PATIENT_REGISTER, EExchangeType.DIRECT, true);
+            var queue = new BusQueueConfigs(Queues.DOCTOR_REGISTERED);
+            return new BusConnectionConfig(queue, exchange);
         }
     }
 }

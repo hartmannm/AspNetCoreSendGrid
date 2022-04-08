@@ -2,6 +2,6 @@
 {
     public class Exchanges
     {
-        public const string NOTIFICATION = "notifications";
+        public const string DOCTOR_PATIENT_REGISTER = "doctor_patient_register";
     }
 }

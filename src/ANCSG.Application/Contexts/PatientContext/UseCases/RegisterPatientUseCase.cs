@@ -4,6 +4,7 @@ using ANCSG.Application.Data;
 using ANCSG.Application.Map;
 using ANCSG.Application.MessageBus;
 using ANCSG.Application.MessageBus.Constants;
+using ANCSG.Application.MessageBus.Enums;
 using ANCSG.Application.Notification;
 using ANCSG.Application.UseCase;
 using ANCSG.Domain.Contexts.PatientContext.Entities;
@@ -43,9 +44,16 @@ namespace ANCSG.Application.Contexts.PatientContext.UseCases
             await _patientRepository.SaveChangesAsync();
 
             var @event = new PatientRegisteredEvent(patient.Name.FirstName, patient.Name.LastName, patient.Email.Address);
-            
-            _messageBus.Publish(Queues.PATIENT_REGISTERED, @event, Exchanges.NOTIFICATION);
+
+            _messageBus.Publish(GetMessageBusConnectionConfig(), @event);
             return map.Map<PatientDTO>(patient);
+        }
+
+        private BusConnectionConfig GetMessageBusConnectionConfig()
+        {
+            var exchange = new BusExchangeConfigs(Exchanges.DOCTOR_PATIENT_REGISTER, EExchangeType.DIRECT, true);
+            var queue = new BusQueueConfigs(Queues.PATIENT_REGISTERED);
+            return new BusConnectionConfig(queue, exchange);
         }
     }
 }
