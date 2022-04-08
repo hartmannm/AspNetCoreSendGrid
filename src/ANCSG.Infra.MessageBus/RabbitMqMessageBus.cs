@@ -16,19 +16,24 @@ namespace ANCSG.Infra.MessageBus
             ConfigureConnection(connectionString);
         }
 
-        public void Publish<T>(string queue, T message, string exchange = null) where T : IntegrationEvent
+        public void Publish<T>(BusConnectionConfig connectionConfig, T message) where T : IntegrationEvent
         {
-            CreateStructure(queue, exchange);
+            CreateStructure(connectionConfig);
 
             string serializedContent = JsonSerializer.Serialize(message);
             var content = Encoding.UTF8.GetBytes(serializedContent);
 
-            _channel.BasicPublish(exchange: exchange ?? "", routingKey: queue, basicProperties: null, body: content);
+            _channel.BasicPublish(
+                exchange: connectionConfig?.exchangeConfigs?.Name ?? string.Empty, 
+                routingKey: connectionConfig.RoutingKey, 
+                basicProperties: null, 
+                body: content
+            );
         }
 
-        public void Subscribe<T>(string queue, Action<T> onMessage) where T : IntegrationEvent
+        public void Subscribe<T>(BusConnectionConfig connectionConfig, Action<T> onMessage) where T : IntegrationEvent
         {
-            CreateStructure(queue);
+            CreateStructure(connectionConfig);
 
             var consumer = new EventingBasicConsumer(_channel);
 
@@ -42,12 +47,12 @@ namespace ANCSG.Infra.MessageBus
 
                 _channel.BasicAck(eventArgs.DeliveryTag, multiple: false);
             };
-            _channel.BasicConsume(queue, autoAck: false, consumer);
+            _channel.BasicConsume(connectionConfig.QueueConfigs.Name, autoAck: false, consumer);
         }
 
-        public void SubscribeAsync<T>(string queue, Func<T, Task> onMessage) where T : IntegrationEvent
+        public void SubscribeAsync<T>(BusConnectionConfig connectionConfig, Func<T, Task> onMessage) where T : IntegrationEvent
         {
-            CreateStructure(queue);
+            CreateStructure(connectionConfig);
 
             var consumer = new EventingBasicConsumer(_channel);
 
@@ -61,7 +66,7 @@ namespace ANCSG.Infra.MessageBus
 
                 _channel.BasicAck(eventArgs.DeliveryTag, multiple: false);
             };
-            _channel.BasicConsume(queue, autoAck: false, consumer);
+            _channel.BasicConsume(connectionConfig.QueueConfigs.Name, autoAck: false, consumer);
         }
 
         private void ConfigureConnection(string connectionString)
@@ -70,14 +75,28 @@ namespace ANCSG.Infra.MessageBus
             _channel = connection.CreateModel();
         }
 
-        private void CreateStructure(string queue, string exchange = null)
+        private void CreateStructure(BusConnectionConfig connectionConfig)
         {
-            _channel.QueueDeclare(queue: queue, durable: false, exclusive: false, autoDelete: false, arguments: null);
+            _channel.QueueDeclare(
+                queue: connectionConfig.QueueConfigs.Name,
+                durable: connectionConfig.QueueConfigs.Durable,
+                exclusive: connectionConfig.QueueConfigs.Exclusive,
+                autoDelete: connectionConfig.QueueConfigs.AutoDelete,
+                arguments: null
+            );
 
-            if (!string.IsNullOrEmpty(exchange))
+            if (connectionConfig.exchangeConfigs is not null)
             {
-                _channel.ExchangeDeclare(exchange: exchange, type: "topic", durable: true);
-                _channel.QueueBind(queue: queue, exchange: exchange, routingKey: queue);
+                _channel.ExchangeDeclare(
+                    exchange: connectionConfig.exchangeConfigs.Name,
+                    type: connectionConfig.exchangeConfigs.Type.ToString().ToLower(),
+                    durable: connectionConfig.exchangeConfigs.Durable
+                );
+                _channel.QueueBind(
+                    queue: connectionConfig.QueueConfigs.Name,
+                    exchange: connectionConfig.exchangeConfigs.Name,
+                    routingKey: connectionConfig.RoutingKey
+                );
             }
         }
     }
