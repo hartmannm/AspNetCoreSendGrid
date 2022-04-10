@@ -1,4 +1,5 @@
-﻿using ANCSG.Application.Notification;
+﻿using ANCSG.API.Results;
+using ANCSG.Application.Notification;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ANCSG.API.Controllers
@@ -19,7 +20,7 @@ namespace ANCSG.API.Controllers
             {
                 var notifications = _notifier.Notifications.Select(n => n.Message);
 
-                return BadRequest(new { Notifications = notifications });
+                return BadRequest(new BadRequestDefaultResult(notifications));
             }
 
             return result;
