@@ -13,5 +13,7 @@ namespace ANCSG.Domain.Contexts.DoctorContext.ValueObjects
             Uf = uf;
             Number = number;
         }
+
+        public string Description() => $"{Number}/{Uf.ToString().ToUpper()}";
     }
 }

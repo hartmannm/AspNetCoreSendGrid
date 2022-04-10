@@ -1,7 +1,9 @@
 ﻿namespace ANCSG.Application.MessageBus.Constants
 {
-    public class Exchanges
+    public sealed class Exchanges
     {
-        public const string DOCTOR_PATIENT_REGISTER = "doctor_patient_register";
+        public const string DOCTOR_PATIENT_REGISTER = "doctor-patient-events";
+
+        public const string MEDICAL_EXAM_SCHEDULED = "medical-exam-scheduled";
     }
 }

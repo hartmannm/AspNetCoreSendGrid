@@ -4,10 +4,14 @@ using ANCSG.Application.Contexts.MedicalExamContext.DTOs;
 using ANCSG.Application.Contexts.PatientContext.Data;
 using ANCSG.Application.Data;
 using ANCSG.Application.Map;
+using ANCSG.Application.MessageBus;
+using ANCSG.Application.MessageBus.Constants;
+using ANCSG.Application.MessageBus.Enums;
 using ANCSG.Application.Notification;
 using ANCSG.Application.UseCase;
 using ANCSG.Domain.Contexts.DoctorContext.Entities;
 using ANCSG.Domain.Contexts.MedicalExamContext.Entities;
+using ANCSG.Domain.Contexts.MedicalExamContext.Events;
 using ANCSG.Domain.Contexts.PatientContext.Entities;
 using System;
 using System.Threading.Tasks;
@@ -19,12 +23,14 @@ namespace ANCSG.Application.Contexts.MedicalExamContext.UseCases
         private readonly IPatientRepository _patientRepository;
         private readonly IDoctorRepository _doctorRepository;
         private readonly IMedicalExamRepository _medicalExamRepository;
+        private readonly IMessageBus _messageBus;
 
-        public ScheduleMedicalExamUseCase(INotifier notifier, IDataManager dataManager, IMap map) : base(notifier, dataManager, map)
+        public ScheduleMedicalExamUseCase(INotifier notifier, IDataManager dataManager, IMap map, IMessageBus messageBus) : base(notifier, dataManager, map)
         {
             _patientRepository = dataManager.PatientRepository;
             _doctorRepository = dataManager.DoctorRepository;
             _medicalExamRepository = dataManager.MedicalExamRepository;
+            _messageBus = messageBus;
         }
 
         public async Task<MedicalExamDTO> Execute(ScheduleMedicalExamRequest request)
@@ -45,6 +51,9 @@ namespace ANCSG.Application.Contexts.MedicalExamContext.UseCases
             await _medicalExamRepository.CreateAsync(medicalExam);
             await _medicalExamRepository.SaveChangesAsync();
 
+            var @event = new ExamScheduledEvent(medicalExam.Id);
+
+            _messageBus.Publish(GetMessageBusConnectionConfig(), @event);
             return map.Map<MedicalExamDTO>(medicalExam);
         }
 
@@ -66,6 +75,12 @@ namespace ANCSG.Application.Contexts.MedicalExamContext.UseCases
                 notifier.AddNotification("Médico não encontrado");
 
             return doctor;
+        }
+
+        private BusConnectionConfig GetMessageBusConnectionConfig()
+        {
+            var exchange = new BusExchangeConfigs(Exchanges.MEDICAL_EXAM_SCHEDULED, EExchangeType.FANOUT, true);
+            return new BusConnectionConfig(exchange, RoutingKeys.MEDICAL_EXAMS_SCHEDULED);
         }
     }
 }

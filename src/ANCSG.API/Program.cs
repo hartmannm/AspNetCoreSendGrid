@@ -12,6 +12,8 @@ builder.Services.AddInfrastructure(builder.Configuration);
 
 builder.Services.AddHostedService<DoctorRegisteredIntegrationHandler>();
 builder.Services.AddHostedService<PatientRegisteredIntegrationHandler>();
+builder.Services.AddHostedService<DoctorExamScheduledIntegrationHandler>();
+builder.Services.AddHostedService<PatientExamScheduledIntegrationHandler>();
 
 var app = builder.Build();
 

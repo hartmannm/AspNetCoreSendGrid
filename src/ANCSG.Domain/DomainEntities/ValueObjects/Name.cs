@@ -11,5 +11,7 @@
             FirstName = firstName;
             LastName = lastName;
         }
+
+        public string FullName() => $"{FirstName} {LastName}";
     }
 }
