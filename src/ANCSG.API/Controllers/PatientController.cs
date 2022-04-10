@@ -35,7 +35,7 @@ namespace ANCSG.API.Controllers
         {
             var result = await _getPatientByIdUseCase.Execute(id);
 
-            return result is null ? NoContent() : Ok(result);
+            return result is null ? DefaultResponse(NoContent()) : DefaultResponse(Ok(result));
         }
 
         [HttpGet]
@@ -43,7 +43,7 @@ namespace ANCSG.API.Controllers
         {
             var result = await _getAllPatientsUseCase.Execute();
 
-            return Ok(result);
+            return DefaultResponse(Ok(result));
         }
     }
 }
