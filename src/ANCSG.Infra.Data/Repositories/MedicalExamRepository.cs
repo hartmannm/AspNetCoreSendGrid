@@ -3,6 +3,7 @@ using ANCSG.Domain.Contexts.MedicalExamContext.Entities;
 using ANCSG.Infra.Data.DataContext;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ANCSG.Infra.Data.Repositories
@@ -21,6 +22,13 @@ namespace ANCSG.Infra.Data.Repositories
                 .Include(x => x.Doctor)
                 .Include(x => x.Patient)
                 .FirstOrDefaultAsync(x => x.Id.Equals(id));
+        }
+
+        public async Task<IEnumerable<MedicalExam>> GetAllAsync() => await context.MedicalExams.ToListAsync();
+
+        public void Update(MedicalExam medicalExam)
+        {
+            context.MedicalExams.Update(medicalExam);
         }
     }
 }

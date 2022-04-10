@@ -16,6 +16,9 @@ namespace ANCSG.Infra.IoC.UseCases
             services.AddScoped<IGetPatientByIdUseCase, GetPatientByIdUseCase>();
             services.AddScoped<IGetAllPatientsUseCase, GetAllPatientsUseCase>();
             services.AddScoped<IScheduleMedicalExamUseCase, ScheduleMedicalExamUseCase>();
+            services.AddScoped<IGetExamByIdUseCase, GetExamByIdUseCase>();
+            services.AddScoped<IGetAllExamsUseCase, GetAllExamsUseCase>();
+            services.AddScoped<IAccomplishExamUseCase, AccomplishExamUseCase>();
             return services;
         }
     }

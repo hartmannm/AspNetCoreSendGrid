@@ -34,5 +34,9 @@ namespace ANCSG.Domain.Contexts.MedicalExamContext.Entities
             Patient = patient;
             Status = Status.Scheduled;
         }
+
+        public bool IsAcomplished() => Status.Equals(Status.Accomplished);
+
+        public void Accomplish() => Status = Status.Accomplished;
     }
 }

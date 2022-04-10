@@ -3,7 +3,6 @@
     public enum Status
     {
         Scheduled,
-        Canceled,
         Accomplished
     }
 }
