@@ -2,23 +2,29 @@
 {
     public class BusConnectionConfig
     {
-        public BusExchangeConfigs exchangeConfigs { get; }
+        public BusExchangeConfigs ExchangeConfigs { get; }
 
         public BusQueueConfigs QueueConfigs { get; }
 
         public string RoutingKey { get; }
 
-        public BusConnectionConfig(BusQueueConfigs queueConfigs, BusExchangeConfigs exchangeConfigs)
+        public BusConnectionConfig(BusQueueConfigs queueConfigs, string routingKey = null)
         {
-            this.exchangeConfigs = exchangeConfigs;
             QueueConfigs = queueConfigs;
-            RoutingKey = queueConfigs.Name;
+            RoutingKey = routingKey ?? queueConfigs.Name;
         }
 
-        public BusConnectionConfig(BusQueueConfigs queueConfigs, string routingKey, BusExchangeConfigs exchangeConfigs)
-            : this(queueConfigs, exchangeConfigs)
+        public BusConnectionConfig(BusExchangeConfigs exchangeConfigs, string routingKey = null)
         {
-            RoutingKey = routingKey;
+            this.ExchangeConfigs = exchangeConfigs;
+            RoutingKey = routingKey ?? string.Empty;
+        }
+
+        public BusConnectionConfig(BusQueueConfigs queueConfigs, BusExchangeConfigs exchangeConfigs, string routingKey = null)
+        {
+            ExchangeConfigs = exchangeConfigs;
+            QueueConfigs = queueConfigs;
+            RoutingKey = routingKey ?? queueConfigs.Name;
         }
     }
 }

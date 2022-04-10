@@ -18,22 +18,22 @@ namespace ANCSG.Infra.MessageBus
 
         public void Publish<T>(BusConnectionConfig connectionConfig, T message) where T : IntegrationEvent
         {
-            CreateStructure(connectionConfig);
+            DeclareExchange(connectionConfig.ExchangeConfigs);
 
             string serializedContent = JsonSerializer.Serialize(message);
             var content = Encoding.UTF8.GetBytes(serializedContent);
 
             _channel.BasicPublish(
-                exchange: connectionConfig?.exchangeConfigs?.Name ?? string.Empty, 
-                routingKey: connectionConfig.RoutingKey, 
-                basicProperties: null, 
+                exchange: connectionConfig?.ExchangeConfigs?.Name ?? string.Empty,
+                routingKey: connectionConfig.RoutingKey,
+                basicProperties: null,
                 body: content
             );
         }
 
         public void Subscribe<T>(BusConnectionConfig connectionConfig, Action<T> onMessage) where T : IntegrationEvent
         {
-            CreateStructure(connectionConfig);
+            DeclareQueue(connectionConfig);
 
             var consumer = new EventingBasicConsumer(_channel);
 
@@ -52,7 +52,7 @@ namespace ANCSG.Infra.MessageBus
 
         public void SubscribeAsync<T>(BusConnectionConfig connectionConfig, Func<T, Task> onMessage) where T : IntegrationEvent
         {
-            CreateStructure(connectionConfig);
+            DeclareQueue(connectionConfig);
 
             var consumer = new EventingBasicConsumer(_channel);
 
@@ -75,7 +75,7 @@ namespace ANCSG.Infra.MessageBus
             _channel = connection.CreateModel();
         }
 
-        private void CreateStructure(BusConnectionConfig connectionConfig)
+        private void DeclareQueue(BusConnectionConfig connectionConfig)
         {
             _channel.QueueDeclare(
                 queue: connectionConfig.QueueConfigs.Name,
@@ -85,19 +85,25 @@ namespace ANCSG.Infra.MessageBus
                 arguments: null
             );
 
-            if (connectionConfig.exchangeConfigs is not null)
+            if (connectionConfig.ExchangeConfigs is not null)
             {
-                _channel.ExchangeDeclare(
-                    exchange: connectionConfig.exchangeConfigs.Name,
-                    type: connectionConfig.exchangeConfigs.Type.ToString().ToLower(),
-                    durable: connectionConfig.exchangeConfigs.Durable
-                );
+                DeclareExchange(connectionConfig.ExchangeConfigs);
                 _channel.QueueBind(
                     queue: connectionConfig.QueueConfigs.Name,
-                    exchange: connectionConfig.exchangeConfigs.Name,
+                    exchange: connectionConfig.ExchangeConfigs.Name,
                     routingKey: connectionConfig.RoutingKey
                 );
             }
+        }
+
+        private void DeclareExchange(BusExchangeConfigs configs)
+        {
+            if (configs is not null)
+                _channel.ExchangeDeclare(
+                    exchange: configs.Name,
+                    type: configs.Type.ToString().ToLower(),
+                    durable: configs.Durable
+                );
         }
     }
 }
