@@ -5,6 +5,7 @@ using ANCSG.Infra.IoC;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
+builder.Services.ConfigureVersion();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerConfig();

@@ -8,7 +8,8 @@ using System.Net.Mime;
 namespace ANCSG.API.Controllers
 {
 
-    [Route("api/medical-exam")]
+    [Route("api/v{version:apiVersion}/medical-exam")]
+    [ApiVersion("1.0")]
     [Produces(MediaTypeNames.Application.Json)]
     [Consumes(MediaTypeNames.Application.Json)]
     public class MedicalExamController : BaseController
@@ -21,7 +22,7 @@ namespace ANCSG.API.Controllers
         public MedicalExamController(INotifier notifier,
                                      IScheduleMedicalExamUseCase scheduleMedicalExamUseCase,
                                      IGetExamByIdUseCase getExamByIdUseCase,
-                                     IGetAllExamsUseCase getAllExamsUseCase, 
+                                     IGetAllExamsUseCase getAllExamsUseCase,
                                      IAccomplishExamUseCase accomplishExamUseCase) : base(notifier)
         {
             _scheduleMedicalExamUseCase = scheduleMedicalExamUseCase;
@@ -51,7 +52,7 @@ namespace ANCSG.API.Controllers
         [HttpPost]
         [ProducesResponseType(typeof(MedicalExamDTO), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(BadRequestDefaultResult), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> ScheduleMedicalExam(ScheduleMedicalExamRequest request)
+        public async Task<IActionResult> ScheduleMedicalExam([FromBody] ScheduleMedicalExamRequest request)
         {
             var opResult = await _scheduleMedicalExamUseCase.Execute(request);
 
@@ -98,7 +99,7 @@ namespace ANCSG.API.Controllers
         [ProducesResponseType(typeof(MedicalExamDTO), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(BadRequestDefaultResult), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> GetById(Guid id)
+        public async Task<IActionResult> GetById([FromRoute] Guid id)
         {
             var result = await _getExamByIdUseCase.Execute(id);
 
@@ -121,7 +122,7 @@ namespace ANCSG.API.Controllers
         [HttpPost("{id:guid}/accomplish")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(BadRequestDefaultResult), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> Accomplish(Guid id)
+        public async Task<IActionResult> Accomplish([FromRoute] Guid id)
         {
             await _accomplishExamUseCase.Execute(id);
 

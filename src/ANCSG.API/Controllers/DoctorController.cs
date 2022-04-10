@@ -8,7 +8,8 @@ using System.Net.Mime;
 namespace ANCSG.API.Controllers
 {
 
-    [Route("api/doctor")]
+    [Route("api/v{version:apiVersion}/doctor")]
+    [ApiVersion("1.0")]
     [Produces(MediaTypeNames.Application.Json)]
     [Consumes(MediaTypeNames.Application.Json)]
     public class DoctorController : BaseController
@@ -50,7 +51,7 @@ namespace ANCSG.API.Controllers
         [HttpPost]
         [ProducesResponseType(typeof(DoctorDTO), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(BadRequestDefaultResult), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> RegisterDoctor(RegisterDoctorRequest request)
+        public async Task<IActionResult> RegisterDoctor([FromBody] RegisterDoctorRequest request)
         {
             var result = await _registerDoctorUseCase.Execute(request);
 
@@ -75,7 +76,7 @@ namespace ANCSG.API.Controllers
         [ProducesResponseType(typeof(DoctorDTO), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(BadRequestDefaultResult), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> GetDoctorById(Guid id)
+        public async Task<IActionResult> GetDoctorById([FromRoute] Guid id)
         {
             var result = await _getDoctorByIdUseCase.Execute(id);
 
