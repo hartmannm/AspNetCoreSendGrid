@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace ANCSG.API.Configuration
 {
-    public static class SwaggerExtensions
+    public static class SwaggerConfig
     {
         public static IServiceCollection AddSwaggerConfig(this IServiceCollection services)
         {
